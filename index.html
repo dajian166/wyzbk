@@ -22,17 +22,30 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <form class="form-horizontal form-login">
+                <form class="form-horizontal form-login" data-bv-raise="keyup">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-bv="true"
+                                data-bv-require="true" data-bv-require-error="* 邮箱地址为必填项" data-bv-email="true"
+                                data-bv-email-error="* 不合法的邮箱地址" data-bv-maxlenght="20"
+                                data-bv-maxlenght-error="* 邮箱地址不能超过20长度">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                        <label for="inputMobile" class="col-sm-2 control-label">Mobile</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="text" class="form-control" id="inputMobile" placeholder="Mobile" data-bv="true"
+                                data-bv-require="true" data-bv-require-error="* 手机号为必填项" data-bv-mobile="true"
+                                data-bv-mobile-error="* 不合法的手机号">
+                        </div>
+                    </div>
+                    <div class="form-group" data-bv-raise="keypress">
+                        <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password"
+                                data-bv="true" data-bv-require="true" data-bv-require-error="* 密码为必填项"
+                                data-bv-regex="^\w{6,12}$" data-bv-email-error="* 密码必须为字母数字下划线组成的6-12为序列">
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,10 +56,31 @@
                     </div>
                 </form>
             </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <form class="form-horizontal form-login">
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputEmail1" placeholder="Email" data-bv="true"
+                                data-bv-require="true" data-bv-require-error="* 邮箱地址为必填项" data-bv-email="true"
+                                data-bv-email-error="* 不合法的邮箱地址" data-bv-maxlenght="20"
+                                data-bv-maxlenght-error="* 邮箱地址不能超过20长度">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-
     </div>
-
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./plugin/bootstrap-validator-1.1.0/bootstrap-validator.js"></script>
+    <script>
+        //不要强奸你的用户，有用户体验，让用户选择
+        $(function () {
+            $('form').bootstrapValidator({
+                // raise: 'change'
+            });
+        });
+    </script>
 </body>
 
 </html>
