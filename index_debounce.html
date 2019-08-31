@@ -40,9 +40,11 @@
          *   第一次 执行
          *   第二次 执行 为了保证只能执行最后一次，所以如果没有超过1秒的周期，需要清除第一次的定时器
          */
-        container.onmousemove = debounce(getUserAction, 1000);
+        //flag定义防抖的方式，如果为true，则立即执行一次(开始边界)
+        //一进去就立即执行是开始边界，一进去延时执行是结束边界
+        container.onmousemove = debounce(getUserAction, 1000, true);
 
-        function debounce(func, wait) {
+        function debounce(func, wait, flag) {
             let timeout;
             //返回一个方法
             return function () {
@@ -50,10 +52,21 @@
                 //console.log(this);
                 let self = this;
                 clearTimeout(timeout);
-                timeout = setTimeout(function () {
-                    func.apply(self);
-                    console.log(2)
-                }, wait);
+
+                if (flag) {
+                    let callNow = !timeout; //callNow的值一定是可以控制的
+                    timeout = setTimeout(function () {
+                        timeout = null;
+                    }, wait);
+                    if (callNow) {
+                        func.apply(self);
+                    }
+                } else {
+                    timeout = setTimeout(function () {
+                        func.apply(self);
+                        console.log(2)
+                    }, wait);
+                }
             }
         }
     </script>
