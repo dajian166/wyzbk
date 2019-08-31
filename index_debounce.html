@@ -26,13 +26,23 @@
         let container = document.getElementById('container');
 
         function getUserAction() {
+            //程序复杂，算法多
             this.innerHTML = count++;
         }
-        container.onmousemove = getUserAction;
+        // container.onmousemove = getUserAction;
 
-        //怎么写？怎么控制函数的执行？设计模式：代理模式
-        function debounce() {
+        //1.怎么写？怎么控制函数的执行？设计模式：代理模式(中间人)
+        container.onmousemove = debounce(getUserAction, 1000);
 
+        function debounce(func, wait) {
+            //返回一个方法
+            return function () {
+                // console.log(1)
+                setTimeout(function () {
+                    func();
+                    console.log(2)
+                }, wait);
+            }
         }
     </script>
 </body>
