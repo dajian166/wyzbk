@@ -32,19 +32,25 @@
         }
         // container.onmousemove = getUserAction;
 
-        //1.怎么写？怎么控制函数的执行？设计模式：代理模式(中间人)
+        //1.防抖怎么写？怎么控制函数的执行？设计模式：代理模式(中间人)
         //2.要解决func的this的指向问题，默认指向了Window对象，因为setTimeout是Window的方法
         //  需要指向container对象，可以使用apply()
+        /**
+         * 3.在同一秒之内需要清除多余的定时器：
+         *   第一次 执行
+         *   第二次 执行 为了保证只能执行最后一次，所以如果没有超过1秒的周期，需要清除第一次的定时器
+         */
         container.onmousemove = debounce(getUserAction, 1000);
 
         function debounce(func, wait) {
+            let timeout;
             //返回一个方法
             return function () {
                 //这里的this指向container，因为返回的方法是给container.onmousemove的
                 //console.log(this);
                 let self = this;
-
-                setTimeout(function () {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
                     func.apply(self);
                     console.log(2)
                 }, wait);
