@@ -42,6 +42,11 @@
          */
         //flag定义防抖的方式，如果为true，则立即执行一次(开始边界)
         //一进去就立即执行是开始边界，一进去延时执行是结束边界
+        //防抖一般用于1.搜索联想，在用户不断的输入值时节约请求的资源
+        //2.window触发resize
+        //3.防止重复提交
+        //节流：1鼠标不断的点击触发，单位时间内mousedown只触发一次
+        //2.侦听滚动事件，比如是否滑到底部自动加载更多。
         container.onmousemove = debounce(getUserAction, 1000, true);
 
         function debounce(func, wait, flag) {
