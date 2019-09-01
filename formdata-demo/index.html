@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        用户：<input type="text" name="username" id="username">
+    </p>
+    <p>
+        密码：<input type="text" name="password" id="password">
+    </p>
+    <p>
+        <button>提交</button>
+    </p>
+    <script>
+        let oBtn = document.getElementsByTagName('button')[0];
+        oBtn.onclick = () => {
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            //FormData主要用来上传文件，如果是上传数据用原生的Ajax1.0就可以了。
+            //虽然FormData可以传送数据，但是服务端解析数据比较麻烦。
+            let oFrom = new FormData();
+            oFrom.set('username', username);
+            oFrom.set('password', password);
+            let xhr = new XMLHttpRequest();
+            xhr.open('post', 'http://localhost:2019/action', true);
+            xhr.send(oFrom);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                        console.log('成功');
+                    } else {
+                        console.log('失败');
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>
