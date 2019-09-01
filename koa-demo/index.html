@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        用户：<input type="text" name="username" id="username">
+    </p>
+    <p>
+        密码：<input type="text" name="password" id="password">
+    </p>
+    <p>
+        文件：<input type="file" name="file" id="file">
+    </p>
+    <p>
+        <button>提交</button>
+    </p>
+    <script>
+        let oBtn = document.getElementsByTagName('button')[0];
+        oBtn.onclick = () => {
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            let oFile = document.getElementById('file');
+            let oFrom = new FormData();
+            oFrom.set('username', username);
+            oFrom.set('password', password);
+            let files = oFile.files || [];
+            console.log(files);
+            oFrom.set('file', files[0]);
+
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('post', 'http://localhost:2018/upload', true);
+            xhr.send(oFrom);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                        console.log('成功');
+                    } else {
+                        console.log('失败');
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>

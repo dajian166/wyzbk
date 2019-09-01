@@ -10,7 +10,10 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.3.0",
-    "koa": "^2.8.1"
+    "koa": "^2.8.1",
+    "koa-better-body": "^3.0.4",
+    "koa-convert": "^1.2.0",
+    "koa-router": "^7.4.0"
   },
   "dependencies": {}
 }
