@@ -6,6 +6,7 @@ export default function (arr) {
 
     _myaxios.prototype.v = function (ob) {
         this.vueob = ob;
+        this.status = true;
     }
 
     //生成请求
@@ -28,10 +29,16 @@ export default function (arr) {
     _myaxios.prototype.sendAxios = function (config) {
         let _axios = this.getAxios(config);
         let self = this;
-        _axios().then(function () {
-            config.success === 'default' ? self.handleAxios(config.dataname, res.data) :
-                config.success.call(self.vueob, res); //指向组件的实例
-        })
+        if (this.status || !config.isBlock) {
+            config.isBlock ? this.status = false : undefined;
+
+            _axios().then(function (res) {
+                this.status = true;
+                config.success === 'default' ? self.handleAxios(config.dataname, res.data) :
+                    config.success.call(self.vueob, res); //指向组件的实例
+            });
+        }
+
     }
     //处理请求
     _myaxios.prototype.handleAxios = function (dataname, data) {
@@ -46,7 +53,8 @@ export default function (arr) {
                 type: config && config.type || 'get',
                 success: config && config.success || 'default',
                 data: config && config.data || {},
-                dataname: config && config.dataname || item.name
+                dataname: config && config.dataname || item.name,
+                isBlock: config && config.isBlock || true
             });
         }
     });
