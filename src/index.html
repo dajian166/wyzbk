@@ -11,13 +11,14 @@
 <body>
 
     <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="./assets/plug/module-driver-2.0/module-driver.js"></script>
     <script>
         $(function () {
             // var meta = null; //接口请求返回的数据
             // ModuleDriver.init(meta);
 
             $.getJSON('json/data.json', function (data) {
-                console.log(data);
+                // console.log(data);
                 var meta = data;
                 ModuleDriver.init(meta);
             });
