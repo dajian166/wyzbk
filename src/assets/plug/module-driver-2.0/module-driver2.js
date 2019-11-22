@@ -49,26 +49,18 @@
             //注意：要基于用户配置的模块来拆，而不是接口返回的数据，这样达到解耦的目的。
             console.log('fetch', data, __M__);
             for (var __m__ in __M__) {
-                // if (data[__m__]) {
-                //     // 填充数据
-                //     __M__[__m__].module = data[__m__];
-                //     __M__[__m__].lock = true;
-                // }
-
-                __M__[__m__].lock = !!(__M__[__m__].module = data[__m__] || undefined);
+                if (data[__m__]) {
+                    // 填充数据
+                    __M__[__m__].module = data[__m__];
+                }
             }
         },
         refresh: function () {
             console.log('refresh', __M__);
             for (var __m__ in __M__) {
-                // if (__M__[__m__].lock) {
-                //     if (__M__[__m__].render) {
-                //         __M__[__m__].render();
-                //     }
-                //     __M__[__m__].lock = false;
-                // }
-                __M__[__m__].lock && __M__[__m__].render && __M__[__m__].render();
-                // __M__[__m__].lock = false;
+                if (__M__[__m__].render) {
+                    __M__[__m__].render();
+                }
             }
         }
     }
