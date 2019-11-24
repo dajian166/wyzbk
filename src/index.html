@@ -9,61 +9,28 @@
 </head>
 
 <body>
-    <div id="detail-data">
-        <p id="total1"></p>
-        <p id="total2"></p>
-        <p id="total3"></p>
-    </div>
-    <button id="filterate">过滤</button>
-    <script src="../node_modules/jquery/dist/jquery.js"></script>
-    <script src="./assets/plug/module-driver-2.0/module-driver.js"></script>
+    <div>001</div>
+    <div class="d2">002</div>
+    <div>003</div>
+    <p>p1</p>
+    <script src="./assets/plug/lib6.js"></script>
     <script>
-        $(function () {
-            // var meta = null; //接口请求返回的数据
-            // ModuleDriver.init(meta);
+        /**
+         * 业务需求：改变页面元素的背景色，把这个功能封装成一个js库 
+         * 
+         */
+        // var divs = document.getElementsByTagName('div');
+        // for (var el of divs) {
+        //     el.style.backgroundColor = 'red';
+        // }
+        // _$('div').css();
+        // _$('p').css();
 
-            // 核心思想：接口数据与模块相对应
-            var module_config = {
-                detail: {
-                    module: null, // 模型数据
-                    render: function () {
-                        console.log('render detail', this.module, this.view);
-                        // 数据模型里的key对应DOM的id
-                        for (var p in this.module) {
-                            $("#" + p, this.view).text(this.module[p]);
-                        }
-
-                        //把业务逻辑交给用户，而框架不操心这些事情
-                    },
-                    view: $("#detail-data") // 视图对象
-                },
-                invest: {
-                    module: null,
-                    render: function () {
-                        console.log('render invest');
-                    },
-                    view: null
-                },
-                list: {
-                    module: null,
-                    render: function () {
-                        console.log('render list');
-                    },
-                    view: null
-                }
-            }
-            $.getJSON('json/data.json', function (data) {
-                // console.log(data);
-                var meta = data;
-                ModuleDriver.init(meta, module_config);
-            });
-
-            $("#filterate").on('click', function () {
-                $.getJSON('json/filter.json', function (data) {
-                    ModuleDriver.load(data);
-                });
-            });
-        });
+        _$('div').css('backgroundColor', 'red');
+        _$('.d2').css('backgroundColor', 'green');
+        _$('p').css('backgroundColor', 'yellow');
+        _$('div').height();
+        console.log(_$('div'));
     </script>
 </body>
 
